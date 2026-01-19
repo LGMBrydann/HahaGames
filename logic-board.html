@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Logic Board Simulator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      text-align: center;
+    }
+    canvas {
+      border: 1px solid #444;
+      margin-top: 10px;
+    }
+    select, button {
+      padding: 6px;
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h3>Turn-Based Logic Exercise</h3>
+
+<select id="mode">
+  <option value="ai">1 Player (vs AI)</option>
+  <option value="local">2 Player</option>
+</select>
+<button onclick="resetGame()">Reset</button>
+
+<canvas id="board" width="400" height="400"></canvas>
+
+<script>
+  const canvas = document.getElementById("board");
+  const ctx = canvas.getContext("2d");
+  const SIZE = 8;
+  const CELL = 50;
+
+  let board = [];
+  let selected = null;
+  let turn = "red";
+  let vsAI = true;
+
+  function resetGame() {
+    board = [];
+    turn = "red";
+    vsAI = document.getElementById("mode").value === "ai";
+
+    for (let y = 0; y < SIZE; y++) {
+      board[y] = [];
+      for (let x = 0; x < SIZE; x++) {
+        if (y < 3 && (x + y) % 2) board[y][x] = "black";
+        else if (y > 4 && (x + y) % 2) board[y][x] = "red";
+        else board[y][x] = null;
+      }
+    }
+    draw();
+  }
+
+  function draw() {
+    for (let y = 0; y < SIZE; y++) {
+      for (let x = 0; x < SIZE; x++) {
+        ctx.fillStyle = (x + y) % 2 ? "#888" : "#eee";
+        ctx.fillRect(x * CELL, y * CELL, CELL, CELL);
+
+        if (board[y][x]) {
+          ctx.beginPath();
+          ctx.arc(x * CELL + 25, y * CELL + 25, 18, 0, Math.PI * 2);
+          ctx.fillStyle = board[y][x];
+          ctx.fill();
+        }
+      }
+    }
+  }
+
+  canvas.onclick = e => {
+    const x = Math.floor(e.offsetX / CELL);
+    const y = Math.floor(e.offsetY / CELL);
+
+    if (selected) {
+      board[y][x] = board[selected.y][selected.x];
+      board[selected.y][selected.x] = null;
+      selected = null;
+      turn = turn === "red" ? "black" : "red";
+      draw();
+
+      if (vsAI && turn === "black") setTimeout(aiMove, 400);
+    } else if (board[y][x] === turn) {
+      selected = { x, y };
+    }
+  };
+
+  function aiMove() {
+    const moves = [];
+    for (let y = 0; y < SIZE; y++) {
+      for (let x = 0; x < SIZE; x++) {
+        if (board[y][x] === "black") {
+          const ny = y + 1;
+          if (ny < SIZE && board[ny][x + 1] === null) {
+            moves.push({ from: {x,y}, to: {x:x+1,y:ny} });
+          }
+        }
+      }
+    }
+    if (!moves.length) return;
+    const m = moves[Math.floor(Math.random() * moves.length)];
+    board[m.to.y][m.to.x] = "black";
+    board[m.from.y][m.from.x] = null;
+    turn = "red";
+    draw();
+  }
+
+  resetGame();
+</script>
+
+</body>
+</html>

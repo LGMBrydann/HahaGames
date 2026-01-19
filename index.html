@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Learning Lab</title>
+  <link rel="icon" href="assets/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    window.addEventListener("load", () => {
+      document.title = "Interactive Learning Lab";
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+      }, 600);
+    });
+  </script>
+</head>
+
+<body>
+<div id="loader">
+  <div class="spinner"></div>
+  <p>Preparing exercises…</p>
+</div>
+
+<div class="dashboard">
+  <h1>Interactive Learning Lab</h1>
+
+  <div class="games-grid">
+    <div class="game-card" onclick="openGame('reaction-lab.html')">
+      <img src="assets/basket.jpeg" alt="Reaction Lab">
+      <p>Reaction Lab</p>
+    </div>
+
+    <div class="game-card" onclick="openGame('strategic-analysis.html')">
+      <img src="assets/chess.jpeg" alt="Strategic Simulator">
+      <p>Strategic Simulator</p>
+    </div>
+
+    <div class="game-card" onclick="openGame('logic-board.html')">
+      <img src="assets/checkers.jpeg" alt="Logic Board">
+      <p>Logic Board</p>
+    </div>
+
+    <div class="game-card" onclick="openGame('geometry-dash.html')">
+      <img src="assets/gd-thumb.jpeg" alt="Geometry Challenge">
+      <p>Geometry Challenge</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openGame(file) {
+    window.location.href = file;
+  }
+</script>
+</body>
+</html>
