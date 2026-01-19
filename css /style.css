@@ -16,7 +16,7 @@ h1 {
   flex-wrap: wrap;
   gap: 20px;
   margin: 40px auto;
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 .game-card {
@@ -45,7 +45,7 @@ h1 {
   color: #555;
 }
 
-/* LOADER */
+/* Loader */
 #loader {
   position: fixed;
   inset: 0;
