@@ -221,6 +221,18 @@
       requestAnimationFrame(animate);
     }
     animate();
+    
+  document.getElementById("tabCloakBtn").addEventListener("click", () => {
+    document.title = "Google Docs";
+
+    let icon = document.querySelector("link[rel='icon']");
+    if (!icon) {
+      icon = document.createElement("link");
+      icon.rel = "icon";
+      document.head.appendChild(icon);
+    }
+    icon.href = "assets/doc.jpeg";
+  });
   </script>
 </body>
 </html>
