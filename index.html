@@ -1,75 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Interactive Learning Lab</title>
-  <link rel="icon" href="assets/school.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
-  <script>
-    window.addEventListener("load", () => {
-      document.title = "Interactive Learning Lab";
-      setTimeout(() => {
-        document.getElementById("loader").style.display = "none";
-      }, 600);
-    });
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LGM's Game Stash</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+<!-- LOADER -->
 <div id="loader">
   <div class="spinner"></div>
-  <p>Preparing exercises…</p>
+  <p>Loading the loading...</p>
 </div>
 
-<div class="dashboard">
-  <h1>Interactive Learning Lab</h1>
-
-  <div class="games-grid">
-    <div class="game-card" onclick="openGame('reaction-lab.html')">
-      <img src="assets/basket.jpeg" alt="Reaction Lab">
-      <p>Reaction Lab</p>
-    </div>
-
-    <div class="game-card" onclick="openGame('strategic-analysis.html')">
-      <img src="assets/chess.jpeg" alt="Strategic Simulator">
-      <p>Strategic Simulator</p>
-    </div>
-
-    <div class="game-card" onclick="openGame('logic-board.html')">
-      <img src="assets/checkers.jpeg" alt="Logic Board">
-      <p>Logic Board</p>
-    </div>
-
-    <div class="game-card" onclick="openGame('geometry-dash.html')">
-      <img src="assets/gd-logo.jpeg" alt="Geometry Challenge">
-      <p>Geometry Challenge</p>
-    </div>
-
-    <!-- NEW GAMES I PICKED -->
-    <div class="game-card" onclick="openGame('tic-tac-toe.html')">
-      <img src="assets/tictactoe.png" alt="Tic Tac Toe">
-      <p>Tic Tac Toe</p>
-    </div>
-
-    <div class="game-card" onclick="openGame('snake.html')">
-      <img src="assets/snake.jpeg" alt="Snake">
-      <p>Snake Classic</p>
-    </div>
-
-    <div class="game-card" onclick="openGame('2048.html')">
-      <img src="assets/2048.jpeg" alt="2048">
-      <p>Number Merge 2048</p>
-    </div>
-
-  </div>
-</div>
-
+<!-- TAB CLOAKER (on load, hides real title) -->
 <script>
-  function openGame(file) {
-    window.location.href = file;
-  }
+  document.title = "Loading...";
+  window.addEventListener('load', () => {
+    document.title = "Ultimate Game Stash";
+    setTimeout(() => {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'grid';
+    }, 2000); // 2s loader
+  });
 </script>
 
+<!-- DASHBOARD -->
+<div id="dashboard" style="display:none;">
+  <h1>Ultimate Game Stash</h1>
+  <div class="game-grid">
+    <!-- Game Buttons -->
+    <a href="3dash.html" class="game-btn">
+      <img src="images/3dash.png" alt="3Dash">
+      <span>3Dash</span>
+    </a>
+    <a href="99nights.html" class="game-btn">
+      <img src="images/99nights.png" alt="99 Nights">
+      <span>99 Nights</span>
+    </a>
+    <a href="adofi.html" class="game-btn">
+      <img src="images/adofi.png" alt="A Dance of Fire and Ice">
+      <span>A Dance of Fire & Ice</span>
+    </a>
+    <a href="8ball.html" class="game-btn">
+      <img src="images/8ball.png" alt="8Ball">
+      <span>8Ball</span>
+    </a>
+    <a href="2dshooting.html" class="game-btn">
+      <img src="images/2dshooting.png" alt="2D Shooting">
+      <span>2D Shooting</span>
+    </a>
+    <a href="snake.html" class="game-btn">
+      <img src="images/snake.png" alt="Snake">
+      <span>Snake</span>
+    </a>
+    <a href="2048.html" class="game-btn">
+      <img src="images/2048.png" alt="2048">
+      <span>2048</span>
+    </a>
+    <a href="tictactoe.html" class="game-btn">
+      <img src="images/tictactoe.png" alt="Tic Tac Toe">
+      <span>Tic Tac Toe</span>
+    </a>
+    <a href="geometrydash.html" class="game-btn">
+      <img src="images/geometrydash.png" alt="Geometry Dash">
+      <span>Geometry Dash</span>
+    </a>
+    <a href="basketrandom.html" class="game-btn">
+      <img src="images/basket.png" alt="Basket Random">
+      <span>Basket Random</span>
+    </a>
+    <a href="chess.html" class="game-btn">
+      <img src="images/chess.png" alt="Chess">
+      <span>Chess</span>
+    </a>
+    <a href="checkers.html" class="game-btn">
+      <img src="images/checkers.png" alt="Checkers">
+      <span>Checkers</span>
+    </a>
+  </div>
+</div>
 </body>
 </html>
