@@ -1,96 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LGM's Game Stash</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-<!-- LOADER -->
-<div id="loader">
-  <div class="spinner"></div>
-  <p>Loading the education...</p>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="icon">☰</div>
+  <div class="icon">🎮</div>
+  <div class="icon">⭐</div>
+  <div class="icon">🕒</div>
 </div>
 
-<!-- DASHBOARD -->
-<div id="dashboard" style="display:none;">
-  <h1>LGM's Game Stash</h1>
-  <div class="game-grid">
+<!-- MAIN -->
+<div class="main">
 
-    <a href="3dash.html" class="game-btn">
-      <img src="images/3dash.jpeg" alt="3Dash">
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="logo">🧪 LGM's Game Stash</div>
+    <input type="text" placeholder="Search">
+  </div>
+
+  <!-- GAME GRID -->
+  <div class="grid">
+
+    <!-- GAME CARD TEMPLATE -->
+    <a href="3dash.html" class="card">
+      <img src="assets/3dash.jpeg">
       <span>3Dash</span>
     </a>
 
-    <a href="99nights.html" class="game-btn">
-      <img src="images/99nights.jpeg" alt="99 Nights">
+    <a href="99nights.html" class="card">
+      <img src="assets/99nights.jpeg">
       <span>99 Nights</span>
     </a>
 
-    <a href="adofi.html" class="game-btn">
-      <img src="images/adofi.jpeg" alt="A Dance of Fire and Ice">
+    <a href="adofi.html" class="card">
+      <img src="assets/adofi.jpeg">
       <span>A Dance of Fire & Ice</span>
     </a>
 
-    <a href="8ball.html" class="game-btn">
-      <img src="images/8ball.png" alt="8Ball">
-      <span>8Ball</span>
+    <a href="8ball.html" class="card">
+      <img src="assets/8ball.png">
+      <span>8 Ball</span>
     </a>
 
-    <a href="2dshooting.html" class="game-btn">
-      <img src="images/2dshooting.png" alt="2D Shooting">
+    <a href="2dshooting.html" class="card">
+      <img src="assets/2dshooting.png">
       <span>2D Shooting</span>
     </a>
 
-    <a href="snake.html" class="game-btn">
-      <img src="images/snake.jpeg" alt="Snake">
+    <a href="snake.html" class="card">
+      <img src="assets/snake.jpeg">
       <span>Snake</span>
     </a>
 
-    <a href="2048.html" class="game-btn">
-      <img src="images/2048.jpeg" alt="2048">
+    <a href="2048.html" class="card">
+      <img src="assets/2048.jpeg">
       <span>2048</span>
     </a>
 
-    <a href="tictactoe.html" class="game-btn">
-      <img src="images/tictactoe.png" alt="Tic Tac Toe">
+    <a href="tictactoe.html" class="card">
+      <img src="assets/tictactoe.png">
       <span>Tic Tac Toe</span>
     </a>
 
-    <a href="geometrydash.html" class="game-btn">
-      <img src="images/geometrydash.jpeg" alt="Geometry Dash">
+    <a href="geometrydash.html" class="card">
+      <img src="assets/geometrydash.jpeg">
       <span>Geometry Dash</span>
     </a>
 
-    <a href="basketrandom.html" class="game-btn">
-      <img src="images/basket.jpeg" alt="Basket Random">
+    <a href="basketrandom.html" class="card">
+      <img src="assets/basket.jpeg">
       <span>Basket Random</span>
     </a>
 
-    <a href="chess.html" class="game-btn">
-      <img src="images/chess.jpeg" alt="Chess">
+    <a href="chess.html" class="card">
+      <img src="assets/chess.jpeg">
       <span>Chess</span>
     </a>
 
-    <a href="checkers.html" class="game-btn">
-      <img src="images/checkers.jpeg" alt="Checkers">
+    <a href="checkers.html" class="card">
+      <img src="assets/checkers.jpeg">
       <span>Checkers</span>
     </a>
 
   </div>
 </div>
 
-<script>
-  // Loader + tab cloaker
-  document.title = "Loading...";
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      document.getElementById('loader').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'grid';
-      document.title = "Ultimate Game Stash";
-    }, 2000);
-  });
-</script>
 </body>
 </html>
