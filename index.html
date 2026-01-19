@@ -10,79 +10,87 @@
 <!-- LOADER -->
 <div id="loader">
   <div class="spinner"></div>
-  <p>Loading the loading...</p>
+  <p>Loading the education...</p>
 </div>
-
-<!-- TAB CLOAKER (on load, hides real title) -->
-<script>
-  document.title = "Loading...";
-  window.addEventListener('load', () => {
-    document.title = "Ultimate Game Stash";
-    setTimeout(() => {
-      document.getElementById('loader').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'grid';
-    }, 2000); // 2s loader
-  });
-</script>
 
 <!-- DASHBOARD -->
 <div id="dashboard" style="display:none;">
   <h1>LGM's Game Stash</h1>
   <div class="game-grid">
-    <!-- Game Buttons -->
+
     <a href="3dash.html" class="game-btn">
       <img src="images/3dash.jpeg" alt="3Dash">
       <span>3Dash</span>
     </a>
+
     <a href="99nights.html" class="game-btn">
       <img src="images/99nights.jpeg" alt="99 Nights">
       <span>99 Nights</span>
     </a>
+
     <a href="adofi.html" class="game-btn">
-      <img src="images/ADOFAI.jpeg" alt="A Dance of Fire and Ice">
+      <img src="images/adofi.jpeg" alt="A Dance of Fire and Ice">
       <span>A Dance of Fire & Ice</span>
     </a>
+
     <a href="8ball.html" class="game-btn">
       <img src="images/8ball.png" alt="8Ball">
       <span>8Ball</span>
     </a>
+
     <a href="2dshooting.html" class="game-btn">
       <img src="images/2dshooting.png" alt="2D Shooting">
       <span>2D Shooting</span>
     </a>
+
     <a href="snake.html" class="game-btn">
       <img src="images/snake.jpeg" alt="Snake">
       <span>Snake</span>
     </a>
+
     <a href="2048.html" class="game-btn">
       <img src="images/2048.jpeg" alt="2048">
       <span>2048</span>
     </a>
+
     <a href="tictactoe.html" class="game-btn">
       <img src="images/tictactoe.png" alt="Tic Tac Toe">
       <span>Tic Tac Toe</span>
     </a>
+
     <a href="geometrydash.html" class="game-btn">
-      <img src="images/gd-logo.jpeg" alt="Geometry Dash">
+      <img src="images/geometrydash.jpeg" alt="Geometry Dash">
       <span>Geometry Dash</span>
     </a>
+
     <a href="basketrandom.html" class="game-btn">
       <img src="images/basket.jpeg" alt="Basket Random">
       <span>Basket Random</span>
     </a>
+
     <a href="chess.html" class="game-btn">
       <img src="images/chess.jpeg" alt="Chess">
       <span>Chess</span>
     </a>
+
     <a href="checkers.html" class="game-btn">
       <img src="images/checkers.jpeg" alt="Checkers">
       <span>Checkers</span>
     </a>
-    <a href="FridayNightFunkin.html" class="game-btn">
-      <img src="images/FNF.png" alt="FNF">
-      <span>Friday Night Funkin</span>
-    </a>
+
   </div>
 </div>
+
+<script>
+  // Loader + tab cloaker
+  document.title = "Loading...";
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'grid';
+      document.title = "Ultimate Game Stash";
+    }, 2000);
+  });
+</script>
 </body>
 </html>
