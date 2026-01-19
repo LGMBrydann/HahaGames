@@ -1,112 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="CSS/style.css">
+  <meta charset="UTF-8" />
+  <title>LGM's Game Stash</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <style>
+    /* ===== GLOBAL ===== */
+    * {
+      box-sizing: border-box;
+      font-family: "Comic Sans MS", "Comic Sans", cursive;
+    }
+
+    body {
+      margin: 0;
+      color: #000;
+      overflow-x: hidden;
+    }
+
+    /* ===== STAR BACKGROUND ===== */
+    #stars {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: radial-gradient(circle at bottom, #0b1d3a, #000);
+    }
+
+    /* ===== DASHBOARD ===== */
+    .container {
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #4da6ff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 25px;
+    }
+
+    .game-card {
+      background: rgba(255, 255, 255, 0.58);
+      border-radius: 18px;
+      padding: 15px;
+      text-align: center;
+      text-decoration: none;
+      color: black;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .game-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .game-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .game-card span {
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+    /* ===== LOADING SCREEN ===== */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(#000, #003366);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2em;
+      z-index: 10;
+    }
+  </style>
 </head>
+
 <body>
+  <!-- Loading -->
+  <div id="loader">Loading LGM’s Game Stash…</div>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <div class="icon">☰</div>
-  <div class="icon">🎮</div>
-  <div class="icon">⭐</div>
-  <div class="icon">🕒</div>
-</div>
+  <!-- Stars -->
+  <canvas id="stars"></canvas>
 
-<!-- MAIN -->
-<div class="main">
+  <!-- Dashboard -->
+  <div class="container">
+    <h1>🎮 LGM’s Game Stash</h1>
 
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <div class="logo">🧪 LGM's Game Stash</div>
-    <input type="text" placeholder="Search">
+    <div class="grid">
+      <!-- ALL GAMES -->
+
+      <a class="game-card" href="geometrydash.html">
+        <img src="assets/geometrydash.jpeg">
+        <span>Geometry Dash Lite</span>
+      </a>
+
+      <a class="game-card" href="FridayNightFunkin.html">
+        <img src="assets/FNF.jpeg">
+        <span>Friday Night Funkin</span>
+      </a>
+
+      <a class="game-card" href="basket.html">
+        <img src="assets/basketrandom.jpeg">
+        <span>Basket Random</span>
+      </a>
+
+      <a class="game-card" href="basketball.html">
+        <img src="assets/bball.jpeg">
+        <span>Basketball Stars</span>
+      </a>
+
+      <a class="game-card" href="snake.html">
+        <img src="assets/snake.jpeg">
+        <span>Snake</span>
+      </a>
+
+      <a class="game-card" href="2048.html">
+        <img src="assets/2048.jpeg">
+        <span>2048</span>
+      </a>
+
+      <a class="game-card" href="tictactoe.html">
+        <img src="assets/tictactoe.png">
+        <span>Tic Tac Toe</span>
+      </a>
+
+      <a class="game-card" href="chess.html">
+        <img src="assets/chess.jpeg">
+        <span>Chess</span>
+      </a>
+
+      <a class="game-card" href="checkers.html">
+        <img src="assets/checkers.jpeg">
+        <span>Checkers</span>
+      </a>
+
+    </div>
   </div>
 
-  <!-- GAME GRID -->
-  <div class="grid">
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // Loading screen
+    window.addEventListener("load", () => {
+      document.getElementById("loader").style.display = "none";
+    });
 
-    <!-- GAME CARD TEMPLATE -->
-    <a href="3dash.html" class="card">
-      <img src="assets/3dash.jpeg">
-      <span>3Dash</span>
-    </a>
+    // Stars animation
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    const stars = [];
+    const COUNT = 180;
 
-    <a href="99nights.html" class="card">
-      <img src="assets/99nights.jpeg">
-      <span>99 Nights</span>
-    </a>
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
 
-    <a href="adofi.html" class="card">
-      <img src="assets/ADOFAI.jpeg">
-      <span>A Dance of Fire & Ice</span>
-    </a>
+    for (let i = 0; i < COUNT; i++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.5 + 0.5,
+        s: Math.random() * 0.6 + 0.2
+      });
+    }
 
-    <a href="8ball.html" class="card">
-      <img src="assets/8ball.png">
-      <span>8 Ball</span>
-    </a>
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "white";
 
-    <a href="2dshooting.html" class="card">
-      <img src="assets/2dshooting.png">
-      <span>2D Shooting</span>
-    </a>
-
-    <a href="snake.html" class="card">
-      <img src="assets/snake.jpeg">
-      <span>Snake</span>
-    </a>
-
-    <a href="2048.html" class="card">
-      <img src="assets/2048.jpeg">
-      <span>2048</span>
-    </a>
-
-    <a href="tictactoe.html" class="card">
-      <img src="assets/tictactoe.png">
-      <span>Tic Tac Toe</span>
-    </a>
-
-    <a href="geometrydash.html" class="card">
-      <img src="assets/gd-logo.jpeg">
-      <span>Geometry Dash</span>
-    </a>
-
-    <a href="basketrandom.html" class="card">
-      <img src="assets/basket.jpeg">
-      <span>Basket Random</span>
-    </a>
-
-    <a href="chess.html" class="card">
-      <img src="assets/chess.jpeg">
-      <span>Chess</span>
-    </a>
-
-    <a href="checkers.html" class="card">
-      <img src="assets/checkers.jpeg">
-      <span>Checkers</span>
-    </a>
-
-    <a href="assesment.html" class="card">
-      <img src="assets/assesment.jpeg">
-      <span>Assesment Examination</span>
-    </a>
-
-    <a href="basketball.html" class="card">
-      <img src="assets/bball.jpeg">
-      <span>Basketball Stars</span>
-    </a>
-
-    <a href="FridayNightFunkin.html" class="card">
-      <img src="assets/FNF.jpeg">
-      <span>Friday Night Funkin</span>
-    </a>
-
-  </div>
-</div>
-
+      for (let s of stars) {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+        s.y += s.s;
+        if (s.y > h) {
+          s.y = 0;
+          s.x = Math.random() * w;
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
 </body>
 </html>
