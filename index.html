@@ -38,6 +38,23 @@
   background: rgba(255, 255, 255, 0.9);
 }
 
+    #gameSuggestBtn {
+  display: block;
+  margin: 0 auto 30px auto;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 1em;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#gameSuggestBtn:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.9);
+}
+    
 
     /* ===== STAR BACKGROUND ===== */
     #stars {
@@ -122,6 +139,11 @@
   <div class="container">
     <h1>🎮 LGM’s Game Stash</h1>
     <button id="tabCloakBtn">🕶️ Tab Cloak</button>
+    
+    <a href="https://forms.gle/64bLsrKDUxALbczm6">
+    <button 
+      id="gameSuggestBtn">📜 Game Suggest</button>
+</a>
 
     <div class="grid">
       <!-- ALL GAMES -->
