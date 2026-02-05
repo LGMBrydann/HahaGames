@@ -136,19 +136,11 @@
   <canvas id="stars"></canvas>
 
   <!-- Dashboard -->
-  <!-- The button with the required ID -->
-<button id="tabCloakBtn">Open Cloaked Site</button>
-
+<button id="tabCloakBtn">🕶 Tab Cloak</button>
 <script>
-  // Add click event listener to the button
   document.getElementById('tabCloakBtn').onclick = function() {
-    // Open a new blank window (about:blank)
     var win = window.open();
-    
-    // Define the URL you want to cloak
     var url = "https://example.com"; 
-
-    // Create an iframe to fill the new tab
     var iframe = win.document.createElement('iframe');
     iframe.style.width = "100%";
     iframe.style.height = "100%";
@@ -157,8 +149,6 @@
     iframe.style.top = "0";
     iframe.style.left = "0";
     iframe.src = url;
-
-    // Inject the iframe into the about:blank window
     win.document.body.appendChild(iframe);
   };
 </script>
