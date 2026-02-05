@@ -122,6 +122,16 @@
       align-items: center;
       justify-content: center;
       color: white;
+      +
+
+
+
+
+
+
+
+
+      
       font-size: 2em;
       z-index: 10;
     }
@@ -136,6 +146,8 @@
   <canvas id="stars"></canvas>
 
   <!-- Dashboard -->
+<h1>🎮 LGM's Game Stash</h1>
+
 <button id="tabCloakBtn">🕶 Tab Cloak</button>
 <script>
   document.getElementById('tabCloakBtn').onclick = function() {
@@ -157,8 +169,6 @@
     <button 
       id="gameSuggestBtn">📜 Game Suggest</button>
 </a>
-
-
 
 
     <div class="grid">
@@ -304,18 +314,7 @@
       requestAnimationFrame(animate);
     }
     animate();
-    
-  document.getElementById("tabCloakBtn").addEventListener("click", () => {
-    document.title = "Google Docs";
+  
 
-    let icon = document.querySelector("link[rel='icon']");
-    if (!icon) {
-      icon = document.createElement("link");
-      icon.rel = "icon";
-      document.head.appendChild(icon);
-    }
-    icon.href = "assets/doc.jpeg";
-  });
-  </script>
 </body>
 </html>
