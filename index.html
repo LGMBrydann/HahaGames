@@ -122,7 +122,6 @@
       align-items: center;
       justify-content: center;
       color: white;
-      +
       font-size: 2em;
       z-index: 10;
     }
@@ -254,9 +253,9 @@
 </a>
 
     </div>
-  </div>
 
-    // Stars animation
+  <script>
+  // Stars animation
     const canvas = document.getElementById("stars");
     const ctx = canvas.getContext("2d");
     let w, h;
@@ -296,7 +295,7 @@
       requestAnimationFrame(animate);
     }
     animate();
-  
+    </script>
 
 </body>
 </html>
