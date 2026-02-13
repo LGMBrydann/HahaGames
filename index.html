@@ -1,351 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>LGM's Game Stash</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<title>LGM's Game Stash</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="icon" type="image/png" href="assets/favicon.png">
 
-  <style>
-    /* ===== GLOBAL ===== */
-    * {
-      box-sizing: border-box;
-      font-family: "Comic Sans MS", "Comic Sans", cursive;
-    }
+<style>
+* { box-sizing: border-box; font-family: "Comic Sans MS", cursive; }
 
-    body {
-      margin: 0;
-      color: #000;
-      overflow-x: hidden;
-    }
+body {
+  margin: 0;
+  color: #000;
+  overflow: hidden;
+}
 
-    #tabCloakBtn {
+/* ===== BOOT SCREEN ===== */
+#bootScreen {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  color: white;
+}
+
+#bootLogo {
+  width: 160px;
+  opacity: 0;
+  transform: rotate(-720deg) scale(0.3);
+  animation: spinIn 2s forwards;
+}
+
+#bootText {
+  margin-top: 20px;
+  font-size: 2em;
+  opacity: 0;
+}
+
+@keyframes spinIn {
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.fadeText {
+  animation: fadeIn 1.2s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+  
+  /* ===== STAR BACKGROUND ===== */
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(circle at bottom, #0b1d3a, #000);
+}
+
+/* ===== DESKTOP ===== */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  text-shadow: 0 0 10px #4da6ff;
+}
+
+/* ===== BUTTONS ===== */
+#tabCloakBtn,
+#gameSuggestBtn {
   display: block;
-  margin: 0 auto 30px auto;
+  margin: 10px auto;
   padding: 10px 18px;
   border: none;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.7);
-  font-size: 1em;
+  background: rgba(255,255,255,0.7);
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
 }
 
-#tabCloakBtn:hover {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.9);
+/* ===== GAME GRID ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
+  gap: 20px;
 }
 
-    #gameSuggestBtn {
-  display: block;
-  margin: 0 auto 30px auto;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.7);
-  font-size: 1em;
+.game-card {
+  background: rgba(255,255,255,0.58);
+  border-radius: 18px;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
 }
 
-#gameSuggestBtn:hover {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.9);
+.game-card img {
+  width:100%;
+  height:120px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-bottom:10px;
 }
-    
 
-    /* ===== STAR BACKGROUND ===== */
-    #stars {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      background: radial-gradient(circle at bottom, #0b1d3a, #000);
-    }
+/* ===== WINDOW ===== */
+#gameWindow {
+  position: fixed;
+  top: 60px;
+  left: 60px;
+  width: 900px;
+  height: 600px;
+  background:#2e2e3e;
+  border:2px solid black;
+  border-radius:12px;
+  display:none;
+  flex-direction:column;
+  z-index:5;
+}
 
-    /* ===== DASHBOARD ===== */
-    .container {
-      padding: 40px;
-      max-width: 1200px;
-      margin: auto;
-    }
+#titlebar {
+  background:#444;
+  color:white;
+  padding:6px;
+  cursor:move;
+  display:flex;
+  justify-content:space-between;
+}
 
-    h1 {
-      text-align: center;
-      color: white;
-      margin-bottom: 30px;
-      text-shadow: 0 0 10px #4da6ff;
-    }
+#gameFrame {
+  flex:1;
+  border:none;
+  width:100%;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 25px;
-    }
-
-    .game-card {
-      background: rgba(255, 255, 255, 0.58);
-      border-radius: 18px;
-      padding: 15px;
-      text-align: center;
-      text-decoration: none;
-      color: black;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      backdrop-filter: blur(6px);
-    }
-
-    .game-card:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    }
-
-    .game-card img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 10px;
-    }
-
-    .game-card span {
-      font-size: 1.1em;
-      font-weight: bold;
-    }
-
-    /* ===== LOADING SCREEN ===== */
-    #loader {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(#000, #003366);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 2em;
-      z-index: 10;
-    }
-  </style>
+/* ===== TASKBAR ===== */
+#taskbar {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  height:45px;
+  background:rgba(0,0,0,0.6);
+  color:white;
+  display:flex;
+  align-items:center;
+  padding-left:10px;
+}
+</style>
 </head>
 
 <body>
+<!-- ===== BOOT SCREEN ===== -->
+<div id="bootScreen">
+  <img src="assets/xmaspfp.png" id="bootLogo">
+  <div id="bootText">LGM OS</div>
+</div>
 
-  <!-- Stars -->
-  <canvas id="stars"></canvas>
+<canvas id="stars"></canvas>
 
-  <!-- Dashboard -->
+<div class="container">
 <h1>🎮 LGM's Game Stash</h1>
 
 <button id="tabCloakBtn">🕶 Tab Cloak</button>
+
+<a href="https://forms.gle/64bLsrKDUxALbczm6">
+<button id="gameSuggestBtn">📜 Game Suggest</button>
+</a>
+
+<div class="grid">
+
+<!-- ALL GAMES KEPT -->
+<a class="game-card" href="Friday/"><img src="assets/FNF.jpeg"><span>Friday Night Funkin</span></a>
+<a class="game-card" href="basket/"><img src="assets/basket.jpeg"><span>Basket Random</span></a>
+<a class="game-card" href="basketball/"><img src="assets/bball.jpeg"><span>Basketball Stars</span></a>
+<a class="game-card" href="snake/"><img src="assets/snake.jpeg"><span>Snake</span></a>
+<a class="game-card" href="2048/"><img src="assets/2048.jpeg"><span>2048</span></a>
+<a class="game-card" href="tictactoe/"><img src="assets/tictactoe.png"><span>Tic Tac Toe</span></a>
+<a class="game-card" href="catmarvin/"><img src="assets/catmario.jpeg"><span>Cat Mario</span></a>
+<a class="game-card" href="crazycattle3d/"><img src="assets/crazycattle3d.jpeg"><span>Crazy Cattle 3D</span></a>
+<a class="game-card" href="crazymotorcycle/"><img src="assets/crazymotorcycle.jpeg"><span>Crazy Motorcycle</span></a>
+<a class="game-card" href="growagarden/"><img src="assets/growagarden.jpeg"><span>Grow a Garden</span></a>
+<a class="game-card" href="fnaf2/"><img src="assets/fnaf2.jpeg"><span>FNAF 2</span></a>
+<a class="game-card" href="fruitninja/"><img src="assets/fruitninja.jpeg"><span>Fruit Ninja</span></a>
+<a class="game-card" href="cltotm/"><img src="assets/totm.jpeg"><span>Tomb of the Mask</span></a>
+<a class="game-card" href="clsubwaysurfersbeijing/"><img src="assets/subwaysurfersbejing.jpeg"><span>Subway Surfers Beijing</span></a>
+<a class="game-card" href="clsnowrider/"><img src="assets/snowrider.jpeg"><span>Snow Rider</span></a>
+<a class="game-card" href="cldrivemady/"><img src="assets/drivemady.jpeg"><span>Drive Mad</span></a>
+<a class="game-card" href="clsupermario64/"><img src="assets/supermario64.jpeg"><span>Super Mario 64</span></a>
+<a class="game-card" href="brawlstars/"><img src="assets/brawlstars.jpeg"><span>Brawl Stars</span></a>
+<a class="game-card" href="guesstheiranswer/"><img src="assets/guesstheiranswer.jpeg"><span>Guess Their Answer</span></a>
+<a class="game-card" href="hole/"><img src="assets/hole.jpeg"><span>Hole.io</span></a>
+<a class="game-card" href="osu!/"><img src="assets/osu!.jpeg"><span>osu!</span></a>
+<a class="game-card" href="thereisnogaem/"><img src="assets/thereisnogaem.jpeg"><span>There Is No Game</span></a>
+<a class="game-card" href="themaninthewindow/"><img src="assets/themaninthewindow.jpeg"><span>The Man in The Window</span></a>
+<a class="game-card" href="uno/"><img src="assets/uno.jpeg"><span>Uno</span></a>
+<a class="game-card" href="WBWWB/"><img src="assets/WBWWB.jpeg"><span>We Become What We Behold</span></a>
+<a class="game-card" href="bloodmoney/"><img src="assets/bloodmoney.jpeg"><span>Bloodmoney</span></a>
+<a class="game-card" href="baldisbasics/"><img src="assets/baldisbasics.jpeg"><span>Baldi's Basics</span></a>
+<a class="game-card" href="raldishouse/"><img src="assets/raldishouse.jpeg"><span>Raldi's Crackhouse</span></a>
+
+</div>
+</div>
+
+<!-- Window -->
+<div id="gameWindow">
+<div id="titlebar">
+<span id="winTitle">Game</span>
+<button onclick="closeWindow()">X</button>
+</div>
+<iframe id="gameFrame"></iframe>
+</div>
+
+<div id="taskbar">LGM OS • Game Stash</div>
+
 <script>
-  document.getElementById('tabCloakBtn').onclick = function() {
-    var win = window.open();
-    var url = "https://tombrady-goat.website"; 
-    var iframe = win.document.createElement('iframe');
-    iframe.style.width = "100%";
-    iframe.style.height = "100%";
-    iframe.style.border = "none";
-    iframe.style.position = "fixed";
-    iframe.style.top = "0";
-    iframe.style.left = "0";
-    iframe.src = url;
-    win.document.body.appendChild(iframe);
+/* ===== TAB CLOAK ===== */
+document.getElementById("tabCloakBtn").onclick = () => {
+  const win = window.open("about:blank");
+  if (!win) return;
+
+  win.document.title = "Google Classroom";
+
+  const iframe = win.document.createElement("iframe");
+  iframe.style = "position:fixed;top:0;left:0;width:100%;height:100%;border:none;";
+  iframe.src = location.href;
+
+  win.document.body.style.margin = "0";
+  win.document.body.appendChild(iframe);
+};
+
+/* ===== OPEN GAME IN WINDOW ===== */
+document.querySelectorAll(".game-card").forEach(card=>{
+  card.addEventListener("click",e=>{
+    e.preventDefault();
+    openGame(card.href, card.innerText);
+  });
+});
+
+function openGame(url,title){
+  gameFrame.src=url;
+  winTitle.innerText=title;
+  gameWindow.style.display="flex";
+}
+
+function closeWindow(){
+  gameFrame.src="";
+  gameWindow.style.display="none";
+}
+
+/* ===== DRAG WINDOW ===== */
+titlebar.onmousedown=e=>{
+  let shiftX=e.clientX-gameWindow.offsetLeft;
+  let shiftY=e.clientY-gameWindow.offsetTop;
+
+  function move(e){
+    gameWindow.style.left=e.pageX-shiftX+"px";
+    gameWindow.style.top=e.pageY-shiftY+"px";
+  }
+
+  document.addEventListener("mousemove",move);
+  document.onmouseup=()=>{
+    document.removeEventListener("mousemove",move);
+    document.onmouseup=null;
   };
+};
+
+/* ===== STARS ===== */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+let w,h;
+const stars=[];
+const COUNT=180;
+
+function resize(){
+  w=canvas.width=window.innerWidth;
+  h=canvas.height=window.innerHeight;
+}
+window.addEventListener("resize",resize);
+resize();
+
+for(let i=0;i<COUNT;i++){
+  stars.push({
+    x:Math.random()*w,
+    y:Math.random()*h,
+    r:Math.random()*1.5+0.5,
+    s:Math.random()*0.6+0.2
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle="white";
+
+  for(let s of stars){
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fill();
+    s.y+=s.s;
+    if(s.y>h){
+      s.y=0;
+      s.x=Math.random()*w;
+    }
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* ===== BOOT SEQUENCE ===== */
+window.addEventListener("load", () => {
+  const text = document.getElementById("bootText");
+  const boot = document.getElementById("bootScreen");
+
+  // Show OS name after logo spin
+  setTimeout(() => {
+    text.classList.add("fadeText");
+  }, 2000);
+
+  // Fade boot screen away
+  setTimeout(() => {
+    boot.style.transition = "opacity 1s";
+    boot.style.opacity = "0";
+
+    setTimeout(() => boot.remove(), 1000);
+  }, 4000);
+});
+  
 </script>
-    
-    <a href="https://forms.gle/64bLsrKDUxALbczm6">
-    <button 
-      id="gameSuggestBtn">📜 Game Suggest</button>
-</a>
-
-
-    <div class="grid">
-      <!-- ALL GAMES -->
-
-<a class="game-card" href="Friday/">
-  <img src="assets/FNF.jpeg">
-  <span>Friday Night Funkin</span>
-</a>
-
-<a class="game-card" href="basket/">
-  <img src="assets/basket.jpeg">
-  <span>Basket Random</span>
-</a>
-
-<a class="game-card" href="basketball/">
-  <img src="assets/bball.jpeg">
-  <span>Basketball Stars</span>
-</a>
-
-<a class="game-card" href="snake/">
-  <img src="assets/snake.jpeg">
-  <span>Snake</span>
-</a>
-
-<a class="game-card" href="2048/">
-  <img src="assets/2048.jpeg">
-  <span>2048</span>
-</a>
-
-<a class="game-card" href="tictactoe/">
-  <img src="assets/tictactoe.png">
-  <span>Tic Tac Toe</span>
-</a>
-
-<a class="game-card" href="catmarvin/">
-  <img src="assets/catmario.jpeg">
-  <span>Cat Mario</span>
-</a>
-
-<a class="game-card" href="crazycattle3d/">
-  <img src="assets/crazycattle3d.jpeg">
-  <span>Crazy Cattle 3D</span>
-</a>
-
-<a class="game-card" href="crazymotorcycle/">
-  <img src="assets/crazymotorcycle.jpeg">
-  <span>Crazy Motorcycle</span>
-</a>
-
-<a class="game-card" href="growagarden/">
-  <img src="assets/growagarden.jpeg">
-  <span>Grow a Garden</span>
-</a>
-
-<a class="game-card" href="fnaf2/">
-  <img src="assets/fnaf2.jpeg">
-  <span>FNAF 2</span>
-</a>
-
-<a class="game-card" href="fruitninja/">
-  <img src="assets/fruitninja.jpeg">
-  <span>Fruit Ninja</span>
-</a>
-
-<a class="game-card" href="cltotm/">
-  <img src="assets/totm.jpeg" alt="Tomb of the Mask">
-  <span>Tomb of the Mask</span>
-</a>
-
-<a class="game-card" href="clsubwaysurfersbeijing/">
-  <img src="assets/subwaysurfersbejing.jpeg" alt="Subway Surfers Beijing">
-  <span>Subway Surfers Beijing</span>
-</a>
-
-<a class="game-card" href="clsnowrider/">
-  <img src="assets/snowrider.jpeg" alt="Snow Rider">
-  <span>Snow Rider</span>
-</a>
-
-<a class="game-card" href="cldrivemady/">
-  <img src="assets/drivemady.jpeg" alt="Drive Mad">
-  <span>Drive Mad</span>
-</a>
-
-<a class="game-card" href="clsupermario64/">
-  <img src="assets/supermario64.jpeg" alt="Super Mario 64">
-  <span>Super Mario 64</span>
-</a>
-
-<a class="game-card" href="brawlstars/">
-  <img src="assets/brawlstars.jpeg">
-  <span>Brawl Stars</span>
-</a>
-
-<a class="game-card" href="guesstheiranswer/">
-  <img src="assets/guesstheiranswer.jpeg">
-  <span>Guess Their Answer</span>
-</a>
-
-<a class="game-card" href="hole/">
-  <img src="assets/hole.jpeg">
-  <span>Hole.io</span>
-</a>
-
-<a class="game-card" href="osu!/">
-  <img src="assets/osu!.jpeg">
-  <span>osu!</span>
-</a>
-
-<a class="game-card" href="thereisnogaem/">
-  <img src="assets/thereisnogaem.jpeg">
-  <span>There Is No Game</span>
-</a>
-
-<a class="game-card" href="themaninthewindow/">
-  <img src="assets/themaninthewindow.jpeg">
-  <span>The Man in The Window</span>
-</a>
-
-<a class="game-card" href="uno/">
-  <img src="assets/uno.jpeg">
-  <span>Uno</span>
-</a>
-
-<a class="game-card" href="WBWWB/">
-  <img src="assets/WBWWB.jpeg">
-  <span>We Become What We Behold</span>
-</a>
-
-<a class="game-card" href="bloodmoney/">
-  <img src="assets/bloodmoney.jpeg">
-  <span>Bloodmoney</span>
-</a>
-
-<a class="game-card" href="baldisbasics/">
-  <img src="assets/baldisbasics.jpeg">
-  <span>Baldi's Basics</span>
-</a>
-
-<a class="game-card" href="raldishouse/">
-  <img src="assets/raldishouse.jpeg">
-  <span>Raldi's Crackhouse</span>
-</a>
-
-    </div>
-
-  <script>
-  // Stars animation
-    const canvas = document.getElementById("stars");
-    const ctx = canvas.getContext("2d");
-    let w, h;
-    const stars = [];
-    const COUNT = 180;
-
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resize);
-    resize();
-
-    for (let i = 0; i < COUNT; i++) {
-      stars.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: Math.random() * 1.5 + 0.5,
-        s: Math.random() * 0.6 + 0.2
-      });
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "white";
-
-      for (let s of stars) {
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fill();
-        s.y += s.s;
-        if (s.y > h) {
-          s.y = 0;
-          s.x = Math.random() * w;
-        }
-      }
-      requestAnimationFrame(animate);
-    }
-    animate();
-    </script>
 
 </body>
 </html>
